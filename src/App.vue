@@ -45,7 +45,7 @@ header {
   width: 1084px;
   margin: 0 auto;
 }
-ul {
+nav ul {
   padding: 3px;
   display: flex;
 }
