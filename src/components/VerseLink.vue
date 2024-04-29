@@ -1,5 +1,11 @@
 <template>
-  <a class="verse" :href="link()"> {{ verse }} </a>
+    <span>
+      <a href="#"><i class="bi bi-x-circle"></i></a>
+      <a href="#"><i class="bi bi-question-circle"></i></a>
+      <a href="#"><i class="bi bi-check-circle"></i></a>
+    </span>
+    <span>&nbsp;&nbsp;</span>
+    <a class="verse" :href="link()"> {{ verse }} </a>
 </template>
 
 <script>

@@ -1,13 +1,11 @@
 <template>
-  <div class="hello">
-    <VerseList :verses="verses" />
-    <hr/>
-    <SubjectView :subject="getSubject('prekat', 'SKAŁA')"/>
-    <hr/>
-    <SubjectList name="Prekatechument" :subjects="getSubjects('prekat')"/>
-    <hr/>
-    <SubjectList name="Pozostałe" :subjects="getSubjects('reszta')"/>
-  </div>
+  <SubjectView :subject="getSubject('prekat', 'SKAŁA')" title="Skała" />
+  <hr />
+  <SubjectList name="Prekatechument" :subjects="getSubjects('prekat')" />
+  <hr />
+  <SubjectList name="Pozostałe" :subjects="getSubjects('reszta')" />
+  <hr />
+  <VerseList :verses="verses" />
 </template>
 
 <script>
@@ -58,5 +56,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>

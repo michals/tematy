@@ -1,9 +1,21 @@
 <template>
-  <ul class="verse-list">
-    <li v-for="item in verses" :key="item">
-      <VerseLink :verse="item" />
-    </li>
-  </ul>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+        :data-bs-target="`#verses-${sectionid}`" aria-expanded="false" :aria-controls="`verses-${sectionid}`">
+        {{ title }} ({{ ((verses)?verses.length:'...') }})
+      </button>
+    </h2>
+    <div :id="`verses-${sectionid}`" class="accordion-collapse collapse" data-bs-parent="#versesAccordion">
+      <div class="accordion-body">
+        <ol class="verse-list">
+            <li v-for="item in verses" :key="item">
+              <VerseLink :verse="item" />
+            </li>
+          </ol>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -16,11 +28,10 @@ export default {
   },
   props: {
     verses: Array,
+    sectionid: String,
+    title: String,
   },
 };
 </script>
 <style scoped>
-  ul.verse-list {
-    display: inline-block;
-  }
 </style>

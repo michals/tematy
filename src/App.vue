@@ -1,62 +1,36 @@
 <template>
-  <header>
-    <nav>
-      <ul>
-        <li class="nav-item">
-          <img class="logo" src="./assets/logo.png" alt="biblia" />
-          Tematy Liturgii Słowa
-        </li>
-      </ul>
-    </nav>
-  </header>
-  <main>
+  <nav-bar />
+  <div class="container">
     <HomePage />
-  </main>
+</div>
 </template>
 
 <script>
 import HomePage from './components/HomePage.vue';
+import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
     HomePage,
+    NavBar,
   },
 };
 </script>
 
 <style>
-body {
-  background: linear-gradient(to bottom, #555, #999);
-  background-attachment: fixed;
+.icon-red {
+  color: red;
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+
+.icon-green {
+  color: green;
 }
-main {
-  margin: 0 auto;
-  padding: 30px;
-  background-color: white;
-  width: 1024px;
-  min-height: 300px;
+
+.icon-blue {
+  color: blue;
 }
-header {
-  background-color: #999;
-  width: 1084px;
-  margin: 0 auto;
-}
-nav ul {
-  padding: 3px;
-  display: flex;
-}
-.nav-item {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 22px;
-  border-right: 1px solid #bbb;
-}
-.logo {
-  vertical-align: middle;
-  height: 30px;
+.icon-gray {
+  color: gray;
 }
 </style>
