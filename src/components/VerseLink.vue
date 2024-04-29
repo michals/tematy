@@ -1,15 +1,15 @@
 <template>
-    <span>
-      <a href="#"><i class="bi bi-x-circle"></i></a>
-      <a href="#"><i class="bi bi-question-circle"></i></a>
-      <a href="#"><i class="bi bi-check-circle"></i></a>
-    </span>
-    <span>&nbsp;&nbsp;</span>
+  <span>
+    <multi-icon :selected="0" :options="['bi-circle', 'bi-dash-circle-dotted', 'bi-patch-question', 'bi-check-circle-fill']" />
     <a class="verse" :href="link()"> {{ verse }} </a>
+  </span>
 </template>
 
 <script>
+import MultiIcon from './MultiIcon.vue';
+
 export default {
+  components: { MultiIcon },
   name: 'VerseLink',
   props: {
     verse: String,
