@@ -4,22 +4,21 @@
       <h5 class="card-title clearfix">
         <span class="float-start">{{ title }}</span>
         <span class="float-end">
-          <select class=" dropdown-toggle">
-            <option>Wszscy</option>
-            <option>Osoba 1</option>
-            <option>Osoba 2</option>
-            <option>Osoba 3</option>
-            <option>Osoba 4</option>
-            <option>Osoba 5</option>
+          <!-- <span>{{ options() }}</span> -->
+          <select class=" dropdown-toggle" @change="changePerson">
+            <option v-for="(option, idx) in options()" :key="idx" :selected="selectedPerson === idx" :value="idx">{{
+              option }}</option>
           </select>
         </span>
       </h5>
 
       <div class="accordion" id="versesAccordion">
-        <VerseList :verses="subject.hd" sectionid="hd" open="show" title="Historyczne" />
-        <VerseList :verses="subject.p" sectionid="p" title="Prorockie" />
-        <VerseList :verses="subject.n" sectionid="n" title="Pozaewangeliczne" />
-        <VerseList :verses="subject.e" sectionid="e" title="Ewangelie" />
+        <VerseList :persons="persons" :person="selectedPerson" :verses="subject.hd" sectionid="hd" open="show"
+          title="Historyczne" />
+        <VerseList :persons="persons" :person="selectedPerson" :verses="subject.p" sectionid="p" title="Prorockie" />
+        <VerseList :persons="persons" :person="selectedPerson" :verses="subject.n" sectionid="n"
+          title="Pozaewangeliczne" />
+        <VerseList :persons="persons" :person="selectedPerson" :verses="subject.e" sectionid="e" title="Ewangelie" />
       </div>
     </div>
   </div>
@@ -36,6 +35,31 @@ export default {
   props: {
     subject: Object,
     title: String,
+    persons: Number,
+    person: Number,
+  },
+  data() {
+    return {
+      selectedPerson: +(this.person),
+    };
+  },
+  methods: {
+    changePerson(foo) {
+      this.selectedPerson = +foo.target.value;
+    },
+    options() {
+      return [
+        'Wszyscy',
+        'Osoba 1',
+        'Osoba 2',
+        'Osoba 3',
+        'Osoba 4',
+        'Osoba 5',
+        'Osoba 6',
+        'Osoba 7',
+        'Osoba 8',
+      ].slice(0, this.persons + 1);
+    },
   },
 };
 </script>

@@ -1,11 +1,13 @@
 <template>
   <div v-if="subject && subject.part && subject.code">
-    <SubjectView :subject="getSubject(subject.part, subject.code)" :title="subject.code" />
+    <SubjectView :subject="getSubject(subject.part, subject.code)" :title="subject.code" :persons=4 :person=0 />
+
   </div>
   <div v-else>
     <SubjectList name="Prekatechument" part="prekat" :subjects="getSubjects('prekat')"
       @change-subject="changeSubject" />
     <SubjectList name="Pozostałe" part="reszta" :subjects="getSubjects('reszta')" @change-subject="changeSubject" />
+
   </div>
 </template>
 

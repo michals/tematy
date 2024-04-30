@@ -25,7 +25,7 @@ export default {
     },
     parseVerse() {
       // simple verse parse
-      console.log('parseVerse', this.verse);
+      // console.log('parseVerse', this.verse);
       const match = this.verse.match(/([^ ]+) (\d+)(?:,(\d+))?/);
       return (match) ? {
         book: this.fixBook(match[1]),
