@@ -1,16 +1,17 @@
 <template>
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+      <button :class="`accordion-button ${selected ? '' : 'collapsed'}`" type="button" data-bs-toggle="collapse"
         :data-bs-target="`#verses-${sectionid}`" aria-expanded="false" :aria-controls="`verses-${sectionid}`">
         {{ title }} ({{ ((verses) ? verses.length : '...') }})
       </button>
     </h2>
-    <div :id="`verses-${sectionid}`" class="accordion-collapse collapse" data-bs-parent="#versesAccordion">
+    <div :id="`verses-${sectionid}`" :class="`accordion-collapse collapse ${selected ? 'show' : ''}`"
+      data-bs-parent="#versesAccordion">
       <div class="accordion-body">
         <ol class="verse-list">
-          <li v-for="(item, index) in verses" :key="item" :class="hideVerse(index)?'visually-hidden':''">
-              <VerseLink :verse="item"/>
+          <li v-for="(item, index) in verses" :key="item" :class="hideVerse(index) ? 'visually-hidden' : ''">
+            <VerseLink :verse="item" />
           </li>
         </ol>
       </div>
@@ -30,6 +31,7 @@ export default {
     verses: Array,
     sectionid: String,
     title: String,
+    selected: Boolean,
     persons: Number,
     person: Number,
   },

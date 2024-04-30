@@ -13,7 +13,7 @@
       </h5>
 
       <div class="accordion" id="versesAccordion">
-        <VerseList :persons="persons" :person="selectedPerson" :verses="subject.hd" sectionid="hd" open="show"
+        <VerseList :persons="persons" :person="selectedPerson" :verses="subject.hd" sectionid="hd" :selected="true"
           title="Historyczne" />
         <VerseList :persons="persons" :person="selectedPerson" :verses="subject.p" sectionid="p" title="Prorockie" />
         <VerseList :persons="persons" :person="selectedPerson" :verses="subject.n" sectionid="n"
