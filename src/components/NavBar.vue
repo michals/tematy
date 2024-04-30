@@ -7,7 +7,7 @@
       </a>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
-          <select class="nav-link dropdown-toggle">
+          <select class="nav-link dropdown-toggle" @change="personsChanged">
             <option value="1">1 Osoba</option>
             <option value="2">2 Osoby</option>
             <option value="3">3 Osoby</option>
@@ -29,9 +29,14 @@ export default {
   name: 'NavBar',
   components: {
   },
-  emits: ['home'],
+  emits: ['home', 'personsChanged'],
   props: {
     subject: Object,
+  },
+  methods: {
+    personsChanged(event) {
+      this.$emit('personsChanged', +event.target.value);
+    },
   },
 };
 </script>

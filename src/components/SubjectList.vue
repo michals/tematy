@@ -4,7 +4,7 @@
       <h5>Lista tematów: {{ name }}</h5>
       <ol class="subject-list">
         <li v-for="subject in subjects" :key="subject">
-          <a :href="`#temat-${subject}`" @click="$emit('changeSubject', part, subject);" :verse="subject">{{ subject
+          <a href="#" @click="$emit('changeSubject', part, subject);" :verse="subject">{{ subject
             }}</a>
         </li>
       </ol>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="subject && subject.part && subject.code">
-    <SubjectView :subject="getSubject(subject.part, subject.code)" :title="subject.code" :persons=4 :person=0 />
+    <SubjectView :subject="getSubject(subject.part, subject.code)" :title="subject.code" :persons="persons" :person=0 />
 
   </div>
   <div v-else>
@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       tematy: null,
+      persons: 5,
       subject: {
         part: null,
         code: null,

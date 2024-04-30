@@ -1,5 +1,5 @@
 <template>
-  <nav-bar @home="home"/>
+  <nav-bar @home="home" @personsChanged="personsChanged"/>
   <div class="container">
     <HomePage ref="home"/>
   </div>
@@ -17,8 +17,10 @@ export default {
   },
   methods: {
     home() {
-      console.log('home()', this.$refs);
       this.$refs.home.clear();
+    },
+    personsChanged(persons) {
+      this.$refs.home.persons = persons;
     },
   },
 };

@@ -4,7 +4,6 @@
       <h5 class="card-title clearfix">
         <span class="float-start">{{ title }}</span>
         <span class="float-end">
-          <!-- <span>{{ options() }}</span> -->
           <select class=" dropdown-toggle" @change="changePerson">
             <option v-for="(option, idx) in options()" :key="idx" :selected="selectedPerson === idx" :value="idx">{{
               option }}</option>
@@ -44,8 +43,8 @@ export default {
     };
   },
   methods: {
-    changePerson(foo) {
-      this.selectedPerson = +foo.target.value;
+    changePerson(event) {
+      this.selectedPerson = +event.target.value;
     },
     options() {
       return [
