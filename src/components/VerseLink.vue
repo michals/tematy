@@ -1,7 +1,8 @@
 <template>
   <span>
-    <multi-icon :selected="0" :options="['bi-circle', 'bi-dash-circle-dotted', 'bi-patch-question', 'bi-check-circle-fill']" />
-    <a class="verse" :href="link()"> {{ verse }} </a>
+    <multi-icon :selected="0"
+      :options="['bi-circle', 'bi-dash-circle-dotted', 'bi-patch-question', 'bi-check-circle-fill']" />
+    <a class="verse" :href="link()" target="_blank"> {{ verse }} </a>
   </span>
 </template>
 
@@ -24,7 +25,8 @@ export default {
     },
     parseVerse() {
       // simple verse parse
-      const match = this.verse.match(/(\w+) (\d+)(?:,(\d+))?/);
+      console.log('parseVerse', this.verse);
+      const match = this.verse.match(/([^ ]+) (\d+)(?:,(\d+))?/);
       return (match) ? {
         book: this.fixBook(match[1]),
         chapter: parseInt(match[2], 10),

@@ -1,21 +1,20 @@
 <template>
-  <SubjectView :subject="getSubject('prekat', 'SKAŁA')" title="Skała" />
-  <hr />
-  <SubjectList name="Prekatechument" :subjects="getSubjects('prekat')" />
-  <hr />
-  <SubjectList name="Pozostałe" :subjects="getSubjects('reszta')" />
-  <hr />
-  <VerseList :verses="verses" />
+  <div v-if="subject && subject.part && subject.code">
+    <SubjectView :subject="getSubject(subject.part, subject.code)" :title="subject.code" />
+  </div>
+  <div v-else>
+    <SubjectList name="Prekatechument" part="prekat" :subjects="getSubjects('prekat')"
+      @change-subject="changeSubject" />
+    <SubjectList name="Pozostałe" part="reszta" :subjects="getSubjects('reszta')" @change-subject="changeSubject" />
+  </div>
 </template>
 
 <script>
 import SubjectList from './SubjectList.vue';
-import VerseList from './VerseList.vue';
 import SubjectView from './SubjectView.vue';
 
 export default {
   components: {
-    VerseList,
     SubjectList,
     SubjectView,
   },
@@ -26,7 +25,6 @@ export default {
       const data = await response.json();
       this.tematy = data;
       console.log(data);
-      this.verses = data.prekat['SKAŁA'].p;
     },
     getSubjects(part) {
       if (this.tematy !== null) {
@@ -34,12 +32,22 @@ export default {
       }
       return [];
     },
-    getSubject(part, name) {
+    getSubject(part, code) {
       if (this.tematy !== null) {
-        return this.tematy[part][name];
+        return this.tematy[part][code];
       }
       return {
         hd: [], h: [], e: [], n: [],
+      };
+    },
+    clear() {
+      this.changeSubject(null, null);
+    },
+    changeSubject(part, subjectCode) {
+      console.log(part, subjectCode);
+      this.subject = {
+        part,
+        code: subjectCode,
       };
     },
   },
@@ -48,8 +56,11 @@ export default {
   },
   data() {
     return {
-      verses: ['1Kor 13,8-12nn', 'Jk 2'],
       tematy: null,
+      subject: {
+        part: null,
+        code: null,
+      },
     };
   },
 };

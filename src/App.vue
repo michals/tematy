@@ -1,8 +1,8 @@
 <template>
-  <nav-bar />
+  <nav-bar @home="home"/>
   <div class="container">
-    <HomePage />
-</div>
+    <HomePage ref="home"/>
+  </div>
 </template>
 
 <script>
@@ -14,6 +14,12 @@ export default {
   components: {
     HomePage,
     NavBar,
+  },
+  methods: {
+    home() {
+      console.log('home()', this.$refs);
+      this.$refs.home.clear();
+    },
   },
 };
 </script>
@@ -30,6 +36,7 @@ export default {
 .icon-blue {
   color: blue;
 }
+
 .icon-gray {
   color: gray;
 }

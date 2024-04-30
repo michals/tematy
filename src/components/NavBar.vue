@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="#" @click="$emit('home')">
         <img src="logo.png" alt="" width="30" class="d-inline-block align-text-top">
         Tematy Liturgii Słowa
       </a>
@@ -29,6 +29,7 @@ export default {
   name: 'NavBar',
   components: {
   },
+  emits: ['home'],
   props: {
     subject: Object,
   },
