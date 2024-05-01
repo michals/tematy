@@ -4,11 +4,39 @@
 
   </div>
   <div v-else>
-    <SubjectList part="prekat" :subjects="getSubjects('prekat')" :codes="getCodes('prekat')"
-      @change-subject="changeSubject" name="Prekatechument" />
-    <SubjectList part="reszta" :subjects="getSubjects('reszta')" :codes="getCodes('reszta')"
-      @change-subject="changeSubject" name="Pozostałe" />
+    <div class="accordion my-3" id="parts">
 
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="prekatHead">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#prekat"
+            aria-expanded="true" aria-controls="prekat">
+            Lista tematów dla prekatechumentu
+          </button>
+        </h2>
+        <div id="prekat" class="accordion-collapse collapse show" aria-labelledby="prekatHead" data-bs-parent="#parts">
+          <div class="accordion-body">
+            <SubjectList part="prekat" :subjects="getSubjects('prekat')" :codes="getCodes('prekat')"
+              @change-subject="changeSubject" name="Prekatechument" />
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="resztaHead">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#reszta"
+            aria-expanded="true" aria-controls="reszta">
+            Lista pozostałych tematów
+          </button>
+        </h2>
+        <div id="reszta" class="accordion-collapse collapse" aria-labelledby="resztaHead" data-bs-parent="#parts">
+          <div class="accordion-body">
+            <SubjectList part="reszta" :subjects="getSubjects('reszta')" :codes="getCodes('reszta')"
+              @change-subject="changeSubject" name="Prekatechument" />
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 

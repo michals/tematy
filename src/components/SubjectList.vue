@@ -1,16 +1,10 @@
 <template>
-  <div class="card my-3">
-    <div class="card-body">
-      <h5>Lista tematów: {{ name }}</h5>
-      <ol class="subject-list">
-        <li v-for="code in codes" :key="code">
-          <a href="#" @click="$emit('changeSubject', part, code);">{{ subjects[code].title
-            }}</a>
-        </li>
-      </ol>
-    </div>
-
-  </div>
+  <ol class="subject-list">
+    <li v-for="code in codes" :key="code">
+      <a href="#" @click="$emit('changeSubject', part, code);">{{ subjects[code].title
+        }}</a>
+    </li>
+  </ol>
 </template>
 
 <script>
@@ -36,6 +30,7 @@ export default {
     -webkit-column-fill: auto;
   }
 }
+
 @media (min-width: 1200px) {
   ol {
     column-count: 3;
