@@ -1,12 +1,13 @@
 <template>
   <div v-if="subject && subject.part && subject.code">
-    <SubjectView :subject="getSubject(subject.part, subject.code)" :title="subject.code" :persons="persons" :person=0 />
+    <SubjectView :subject="getSubject(subject.part, subject.code)" :persons="persons" :person=0 />
 
   </div>
   <div v-else>
-    <SubjectList name="Prekatechument" part="prekat" :subjects="getSubjects('prekat')"
-      @change-subject="changeSubject" />
-    <SubjectList name="Pozostałe" part="reszta" :subjects="getSubjects('reszta')" @change-subject="changeSubject" />
+    <SubjectList part="prekat" :subjects="getSubjects('prekat')" :codes="getCodes('prekat')"
+      @change-subject="changeSubject" name="Prekatechument" />
+    <SubjectList part="reszta" :subjects="getSubjects('reszta')" :codes="getCodes('reszta')"
+      @change-subject="changeSubject" name="Pozostałe" />
 
   </div>
 </template>
@@ -28,19 +29,24 @@ export default {
       this.tematy = data;
       console.log(data);
     },
-    getSubjects(part) {
+    getCodes(part) {
       if (this.tematy !== null) {
         return Object.keys(this.tematy[part]);
       }
       return [];
     },
+    getSubjects(part) {
+      if (this.tematy === null) return [];
+      return this.tematy[part];
+    },
     getSubject(part, code) {
-      if (this.tematy !== null) {
-        return this.tematy[part][code];
+      const subjects = this.getSubjects(part);
+      if (subjects.length === 0) {
+        return {
+          title: '', hd: [], h: [], e: [], n: [],
+        };
       }
-      return {
-        hd: [], h: [], e: [], n: [],
-      };
+      return subjects[code];
     },
     clear() {
       this.changeSubject(null, null);

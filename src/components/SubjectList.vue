@@ -3,8 +3,8 @@
     <div class="card-body">
       <h5>Lista tematów: {{ name }}</h5>
       <ol class="subject-list">
-        <li v-for="subject in subjects" :key="subject">
-          <a href="#" @click="$emit('changeSubject', part, subject);" :verse="subject">{{ subject
+        <li v-for="code in codes" :key="code">
+          <a href="#" @click="$emit('changeSubject', part, code);">{{ subjects[code].title
             }}</a>
         </li>
       </ol>
@@ -24,7 +24,8 @@ export default {
   props: {
     name: String,
     part: String,
-    subjects: Array,
+    subjects: Object,
+    codes: Array,
   },
 };
 </script>

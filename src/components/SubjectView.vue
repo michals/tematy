@@ -2,7 +2,7 @@
   <div class="card my-3">
     <div class="card-body">
       <h5 class="card-title clearfix">
-        <span class="float-start">{{ title }}</span>
+        <span class="float-start">{{ subject.title }}</span>
         <span class="float-end">
           <select class=" dropdown-toggle" @change="changePerson">
             <option v-for="(option, idx) in options()" :key="idx" :selected="selectedPerson === idx" :value="idx">{{
@@ -33,7 +33,6 @@ export default {
   },
   props: {
     subject: Object,
-    title: String,
     persons: Number,
     person: Number,
   },
@@ -48,15 +47,15 @@ export default {
     },
     options() {
       return [
-        'Wszyscy',
-        'Osoba 1',
-        'Osoba 2',
-        'Osoba 3',
-        'Osoba 4',
-        'Osoba 5',
-        'Osoba 6',
-        'Osoba 7',
-        'Osoba 8',
+        'Wszystkich',
+        'Osoby 1',
+        'Osoby 2',
+        'Osoby 3',
+        'Osoby 4',
+        'Osoby 5',
+        'Osoby 6',
+        'Osoby 7',
+        'Osoby 8',
       ].slice(0, this.persons + 1);
     },
   },

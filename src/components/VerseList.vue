@@ -44,4 +44,17 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+@media (min-width: 600px) {
+  ol {
+    column-count: 2;
+    -webkit-column-fill: auto;
+  }
+}
+@media (min-width: 1200px) {
+  ol {
+    column-count: 3;
+    -webkit-column-fill: auto;
+  }
+}
+</style>
