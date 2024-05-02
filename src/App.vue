@@ -1,18 +1,18 @@
 <template>
   <nav-bar @home="home" @personsChanged="personsChanged"/>
   <div class="container">
-    <HomePage ref="home"/>
+    <router-view />
   </div>
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue';
+// import HomePage from './views/HomePage.vue';
 import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
-    HomePage,
+    // HomePage,
     NavBar,
   },
   methods: {
@@ -20,7 +20,11 @@ export default {
       this.$refs.home.clear();
     },
     personsChanged(persons) {
-      this.$refs.home.persons = persons;
+      console.log(persons, this.$route, this.$router);
+      const { params } = this.$route;
+      params.persons = persons;
+      console.log('push params: ', params);
+      this.$router.push({ name: this.$route.name, params });
     },
   },
 };

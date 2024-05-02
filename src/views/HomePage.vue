@@ -1,7 +1,6 @@
 <template>
   <div v-if="subject && subject.part && subject.code">
     <SubjectView :subject="getSubject(subject.part, subject.code)" :persons="persons" :person=0 />
-
   </div>
   <div v-else>
     <div class="accordion my-3" id="parts">
@@ -41,8 +40,8 @@
 </template>
 
 <script>
-import SubjectList from './SubjectList.vue';
-import SubjectView from './SubjectView.vue';
+import SubjectList from '../components/SubjectList.vue';
+import SubjectView from '../components/SubjectView.vue';
 
 export default {
   components: {
@@ -103,5 +102,4 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped></style>

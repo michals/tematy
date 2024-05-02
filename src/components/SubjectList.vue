@@ -1,8 +1,7 @@
 <template>
   <ol class="subject-list">
     <li v-for="code in codes" :key="code">
-      <a href="#" @click="$emit('changeSubject', part, code);">{{ subjects[code].title
-        }}</a>
+      <router-link :to="{ name: 'subject', params: { code: code } }">{{ subjects[code].title }}</router-link>
     </li>
   </ol>
 </template>
@@ -12,9 +11,6 @@ export default {
   name: 'VerseList',
   components: {
   },
-  emits: [
-    'changeSubject',
-  ],
   props: {
     name: String,
     part: String,
@@ -28,6 +24,7 @@ export default {
   ol {
     column-count: 2;
     -webkit-column-fill: auto;
+    column-fill: auto;
   }
 }
 
@@ -35,6 +32,7 @@ export default {
   ol {
     column-count: 3;
     -webkit-column-fill: auto;
+    column-fill: auto;
   }
 }
 </style>

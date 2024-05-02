@@ -49,12 +49,14 @@ export default {
   ol {
     column-count: 2;
     -webkit-column-fill: auto;
+    column-fill: auto;
   }
 }
 @media (min-width: 1200px) {
   ol {
     column-count: 3;
     -webkit-column-fill: auto;
+    column-fill: auto;
   }
 }
 </style>
