@@ -1,8 +1,8 @@
 <template>
-  <div v-if="json" class="card my-3">
+  <div class="card my-3">
     <div class="card-body">
       <h5 class="card-title clearfix">
-        <span class="float-start">Temat: <strong>{{ subject.t }}</strong></span>
+        <span class="float-start">Temat: <strong>{{ entry.title }}</strong></span>
         <span class="float-end">
           <person-dropdown :slug="slug" :people="people" :person="person" ref="personComponent" />
           <span>&nbsp;z</span>
@@ -11,26 +11,25 @@
       </h5>
 
       <div class="accordion" id="versesAccordion">
-        <VerseList v-if="entries[0].refs.HD" :persons="people" :person="person" :selected="true"
-        :entries="entries" sectionId="HD" title="Historyczne + Dydaktyczne" />
-        <VerseList v-if="entries[0].refs.H" :persons="people" :person="person" :selected="true"
-        :entries="entries" sectionId="H" title="Historyczne" />
+        <VerseList v-if="entry.refs.HD" :persons="people" :person="person" :selected="true"
+        :entries="[entry]" sectionId="HD" title="Historyczne + Dydaktyczne" />
+        <VerseList v-if="entry.refs.H" :persons="people" :person="person" :selected="true"
+        :entries="[entry]" sectionId="H" title="Historyczne" />
 
-        <VerseList v-if="entries[0].refs.PD" :persons="people" :person="person"
-        :entries="entries" sectionId="PD" title="Prorockie + Dydaktyczne" />
-        <VerseList v-if="entries[0].refs.P" :persons="people" :person="person"
-        :entries="entries" sectionId="P" title="Prorockie" />
-
-        <VerseList :persons="people" :person="person"
-        :entries="entries" sectionId="N" title="Pozaewangeliczne" />
+        <VerseList v-if="entry.refs.PD" :persons="people" :person="person"
+        :entries="[entry]" sectionId="PD" title="Prorockie + Dydaktyczne" />
+        <VerseList v-if="entry.refs.P" :persons="people" :person="person"
+        :entries="[entry]" sectionId="P" title="Prorockie" />
 
         <VerseList :persons="people" :person="person"
-        :entries="entries" sectionId="G" title="Ewangelie" />
+        :entries="[entry]" sectionId="N" title="Pozaewangeliczne" />
+
+        <VerseList :persons="people" :person="person"
+        :entries="[entry]" sectionId="G" title="Ewangelie" />
 
         <VerseList :persons="people" :person="0"
-        :entries="entries" sectionId="d" title="Psalmy (pomocne przy doborze pieśni)" />
+        :entries="[entry]" sectionId="d" title="Psalmy (pomocne przy doborze pieśni)" />
       </div>
-
     </div>
   </div>
 
@@ -65,9 +64,11 @@ export default {
         setTimeout(() => { this.$refs.personComponent.open(); }, 300);
       }
     },
-    getEntry(entrySlug) {
+  },
+  computed: {
+    entry() {
       if (this.json) {
-        return this.json.entries.find((entry) => entry.slug === entrySlug);
+        return this.json.entries.find((entry) => entry.slug === this.slug);
       }
       return { // when json not yet loaded
         title: '...',
@@ -76,25 +77,6 @@ export default {
           HD: [], P: [], N: [], G: [], d: [],
         },
       };
-    },
-  },
-  computed: {
-    subject() {
-      if (this.json) {
-        console.log('slug=', this.slug);
-        const found = this.json.subjects.find((subject) => subject.s === this.slug);
-        console.log('found=', found);
-        return found;
-      }
-      console.log('no json');
-      return { // when json not yet loaded
-        t: '...',
-        s: this.slug,
-        e: [],
-      };
-    },
-    entries() {
-      return this.subject.e.map((slug) => this.getEntry(slug));
     },
   },
   updated() {

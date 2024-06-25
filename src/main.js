@@ -2,17 +2,13 @@ import { createApp } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import App from './App.vue';
 import HomePage from './views/HomePage.vue';
-import PartsPage from './views/PartsPage.vue';
+import EntryPage from './views/EntryPage.vue';
 import SubjectPage from './views/SubjectPage.vue';
 
-// /
-// /lista/prekat
-// /lista/reszta
-// /temat/CHLEB/osoby/3/osoba/1
-// /osoby/3/temat/CHLEB/osoba/1
-
-// <router-view :key="$route.path"></router-view>
-// routes =[ {..., props: route=> ({id: parseInt(route.params.id)})} ]
+function integerIfPresent(name, value) {
+  if (!value) return {};
+  return { [name]: parseInt(value, 10) };
+}
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -23,21 +19,35 @@ const router = createRouter({
       component: HomePage,
     },
     {
-      path: '/lista/:part',
-      name: 'part',
-      component: PartsPage,
+      path: '/haslo/:slug/:people?/:person?',
+      name: 'entry',
+      component: EntryPage,
+      props: (route) => ({
+        slug: route.params.slug || '',
+        ...integerIfPresent('people', route.params.people),
+        ...integerIfPresent('person', route.params.person),
+      }),
     },
     {
-      path: '/temat/:code/:persons?/:person?',
+      path: '/temat/:slug/:people?/:person?',
       name: 'subject',
       component: SubjectPage,
       props: (route) => ({
-        persons: parseInt(route.params.persons, 10) || 5,
-        code: route.params.code,
-        person: parseInt(route.params.person, 10) || 0,
+        slug: route.params.slug || '',
+        ...integerIfPresent('people', route.params.people),
+        ...integerIfPresent('person', route.params.person),
       }),
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  console.log('Global Before Each: Navigating from', from.fullPath, 'to', to.fullPath);
+  next();
+});
+
+router.afterEach((to, from) => {
+  console.log('Global After Each: Navigated from', from.fullPath, 'to', to.fullPath);
 });
 
 createApp(App).use(router).mount('#app');

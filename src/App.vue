@@ -1,49 +1,35 @@
 <template>
-  <nav-bar @home="home" @personsChanged="personsChanged"/>
+  <nav-bar :json="json"/>
   <div class="container">
-    <router-view />
+    <router-view :json="json"/>
   </div>
 </template>
 
 <script>
-// import HomePage from './views/HomePage.vue';
 import NavBar from './components/NavBar.vue';
 
 export default {
   name: 'App',
   components: {
-    // HomePage,
     NavBar,
   },
+  data() {
+    return {
+      json: null,
+    };
+  },
   methods: {
-    home() {
-      this.$refs.home.clear();
+    async loadJSON() {
+      const response = await fetch('subjects-ddhp-lim77-merged.json');
+      this.json = await response.json();
+      console.log(this.json);
     },
-    personsChanged(persons) {
-      console.log(persons, this.$route, this.$router);
-      const { params } = this.$route;
-      params.persons = persons;
-      console.log('push params: ', params);
-      this.$router.push({ name: this.$route.name, params });
-    },
+  },
+  async mounted() {
+    await this.loadJSON();
   },
 };
 </script>
 
 <style>
-.icon-red {
-  color: red;
-}
-
-.icon-green {
-  color: green;
-}
-
-.icon-blue {
-  color: blue;
-}
-
-.icon-gray {
-  color: gray;
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <span>
-    <multi-icon :selected="0"
-      :options="['bi-circle', 'bi-dash-circle-dotted', 'bi-patch-question', 'bi-check-circle-fill']" />
+    <multi-icon v-if="!noicon" :selected="0"
+      :options="['bi-circle', 'bi-dash-circle-dotted', 'bi-check-circle-fill']" />
     <a class="verse" :href="link()" target="_blank"> {{ verse }} </a>
   </span>
 </template>
@@ -14,6 +14,7 @@ export default {
   name: 'VerseLink',
   props: {
     verse: String,
+    noicon: Boolean,
   },
   methods: {
     fixBook(verse) {

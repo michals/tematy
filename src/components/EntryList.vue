@@ -1,20 +1,18 @@
 <template>
   <ol class="subject-list">
-    <li v-for="subject in subjects" :key="subject">
-      <router-link :to="{ name: 'subject', params: { slug: subject.s } }">
-        {{ subject.t }}
-      </router-link>
+    <li v-for="entry in entries" :key="entry">
+      <router-link :to="{ name: 'entry', params: { slug: entry.slug } }">{{ entry.title }}</router-link>
     </li>
   </ol>
 </template>
 
 <script>
 export default {
-  name: 'SubjectList',
+  name: 'EntryList',
   components: {
   },
   props: {
-    subjects: Array,
+    entries: Array,
   },
 };
 </script>
