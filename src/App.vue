@@ -20,7 +20,9 @@ export default {
   },
   methods: {
     async loadJSON() {
-      const response = await fetch('subjects-ddhp-lim77-merged.json');
+      const db = new URLSearchParams(window.location.search).get('use') || 'ddhp-lim77-merged';
+      console.log('DB:', db);
+      const response = await fetch(`subjects-${db}.json`);
       this.json = await response.json();
       console.log(this.json);
     },

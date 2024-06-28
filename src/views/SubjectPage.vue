@@ -27,8 +27,9 @@
         <VerseList :persons="people" :person="person"
         :entries="entries" sectionId="G" title="Ewangelie" />
 
-        <VerseList :persons="people" :person="0"
-        :entries="entries" sectionId="d" title="Psalmy (pomocne przy doborze pieśni)" />
+        <VerseList v-if="entries[0].refs.d" :persons="people" :person="0"
+        :entries="entries" sectionId="d" title="Psalmy"
+        note="Odniesienia do Psalmów. Pomocne przy doborze pieśni." />
       </div>
 
     </div>

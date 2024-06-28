@@ -8,15 +8,18 @@
     </h2>
     <div :id="`verses-${sectionId}`" :class="`accordion-collapse collapse ${selected ? 'show' : ''}`"
       data-bs-parent="#versesAccordion">
-      <div v-for="entry in entries" :key="entry" class="accordion-body">
-        <div v-if="multiEntry">
-          Wersety dla hasła <strong>{{ entry.title }}</strong> ({{ titleCounter(entry) }}):
+      <div class="accordion-body">
+        <div class="mb-2">{{ note }}</div>
+        <div v-for="entry in entries" :key="entry" >
+          <div v-if="multiEntry">
+            Wersety dla hasła <strong>{{ entry.title }}</strong> ({{ titleCounter(entry) }}):
+          </div>
+          <ol class="verse-list">
+            <li v-for="(item, index) in verses(entry)" :key="item" :class="hideVerse(index) ? 'visually-hidden' : ''">
+              <VerseLink :verse="item" :noicon="sectionId==='d'"/>
+            </li>
+          </ol>
         </div>
-        <ol class="verse-list">
-          <li v-for="(item, index) in verses(entry)" :key="item" :class="hideVerse(index) ? 'visually-hidden' : ''">
-            <VerseLink :verse="item" :noicon="sectionId==='d'"/>
-          </li>
-        </ol>
       </div>
     </div>
   </div>
@@ -34,6 +37,7 @@ export default {
     entries: Array,
     sectionId: String,
     title: String,
+    note: String,
     selected: Boolean,
     persons: Number,
     person: Number,
