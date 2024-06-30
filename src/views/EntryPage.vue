@@ -2,7 +2,7 @@
   <div class="card my-3">
     <div class="card-body">
       <h5 class="card-title clearfix">
-        <span class="float-start">Temat: <strong>{{ entry.title }}</strong></span>
+        <span class="float-start"><strong>{{ entry.title }}</strong></span>
         <span class="float-end">
           <person-dropdown :slug="slug" :people="people" :person="person" ref="personComponent" />
           <span>&nbsp;z</span>

@@ -2,7 +2,7 @@
   <span>
     <multi-icon v-if="!noicon" :selected="0"
       :options="['bi-circle', 'bi-dash-circle-dotted', 'bi-check-circle-fill']" />
-    <a class="verse" :href="link()" target="_blank"> {{ verse }} </a>
+    <a class="verse" :href="link()" target="_blank"> {{ verse.replaceAll('.', '&thinsp;.') }} </a>
   </span>
 </template>
 

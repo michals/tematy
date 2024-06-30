@@ -5,7 +5,7 @@
         <h2 class="accordion-header" id="subjectHead">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#subject"
             aria-expanded="true" aria-controls="subject">
-            Tematów dla prekatechumenatu
+            Tematy dla prekatechumenatu
           </button>
         </h2>
         <div id="subject" class="accordion-collapse collapse show"

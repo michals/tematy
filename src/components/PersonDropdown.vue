@@ -1,7 +1,13 @@
 <template>
 <div class="dropdown dropstart d-inline-block">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="person"
-        data-bs-toggle="dropdown" aria-expanded="false" ref="personButton">
+    <button class="btn btn-secondary btn-sm dropdown-toggle"
+        type="button"
+        id="person"
+        :disabled="!people"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        ref="personButton"
+        >
         <i v-if="!person" class="bi bi-asterisk"></i>
         <span v-if="person" >{{ person }}<i class="bi bi-person-fill"></i></span>
     </button>
@@ -37,7 +43,9 @@ export default {
   },
   methods: {
     open() {
-      new window.bootstrap.Dropdown(this.$refs.personButton).show();
+      if (this.people) {
+        new window.bootstrap.Dropdown(this.$refs.personButton).show();
+      }
     },
   },
   computed: {
