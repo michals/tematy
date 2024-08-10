@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
+import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import HomePage from './views/HomePage.vue';
 import EntryPage from './views/EntryPage.vue';
@@ -50,4 +51,14 @@ router.afterEach((to, from) => {
   console.log('Global After Each: Navigated from', from.fullPath, 'to', to.fullPath);
 });
 
-createApp(App).use(router).mount('#app');
+const app = createApp(App);
+
+// Suppress production tip message
+app.config.productionTip = false;
+
+app.use(router);
+app.use(VueGtag, {
+  config: { id: 'G-MCBJLFP84W' },
+}, router);
+
+app.mount('#app');
