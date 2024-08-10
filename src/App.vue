@@ -1,5 +1,5 @@
 <template>
-  <nav-bar :json="json"/>
+  <nav-bar :json="json" :location="$route"/>
   <div class="container">
     <router-view :json="json"/>
   </div>
@@ -22,7 +22,18 @@ export default {
     async loadJSON() {
       const db = new URLSearchParams(window.location.search).get('use') || 'ddhp-lim77-merged';
       console.log('DB:', db);
-      const response = await fetch(`subjects-${db}.json`);
+      let response;
+      if (window.DecompressionStream) {
+        console.log('Using DecompressionStream');
+        const gunzip = new window.DecompressionStream('gzip');
+        const gzResponse = await fetch(`subjects-${db}.json.gz`);
+        const blob = await gzResponse.blob();
+        const decompressedStream = blob.stream().pipeThrough(gunzip);
+        response = new window.Response(decompressedStream);
+      } else {
+        console.log('No support for DecompressionStream');
+        response = await fetch(`subjects-${db}.json`);
+      }
       this.json = await response.json();
       console.log(this.json);
     },
