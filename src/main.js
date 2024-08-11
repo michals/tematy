@@ -6,6 +6,7 @@ import HomePage from './views/HomePage.vue';
 import InfoPage from './views/InfoPage.vue';
 import EntryPage from './views/EntryPage.vue';
 import SubjectPage from './views/SubjectPage.vue';
+import './registerServiceWorker';
 
 function integerIfPresent(name, value) {
   if (!value) return {};
