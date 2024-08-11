@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     async loadJSON() {
-      const db = new URLSearchParams(window.location.search).get('use') || 'ddhp-lim77-merged';
+      const db = new URLSearchParams(window.location.search).get('use') || 'ddh-lim77-overlap';
       console.log('DB:', db);
       let response;
       if (window.DecompressionStream) {

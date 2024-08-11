@@ -5,24 +5,22 @@
         <img src="logo.png" alt="" width="30" class="d-inline-block align-text-top">
         Tematy Liturgii Słowa
       </router-link>
+      <div class="dropdown dropstart d-inline-block">
+        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="cfg" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="bi bi-gear"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="cfg">
+          <li>
+            <h6 class="dropdown-header">Konfiguracje:</h6>
+          </li>
+          <li v-for="item of configs()" :key="item.url">
+            <a :href="item.url" class="dropdown-item">{{ item.text }}</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="dropdown dropstart d-inline-block me-2">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="cfg"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-gear"></i>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="cfg">
-        <li>
-          <h6 class="dropdown-header">Konfiguracje:</h6>
-        </li>
-        <li v-for="item of configs()" :key="item.url">
-          <a :href="item.url" class="dropdown-item" >{{item.text}}</a>
-        </li>
-
-    </ul>
-</div>
-
-</nav>
+  </nav>
 </template>
 
 <script>
@@ -35,12 +33,19 @@ export default {
   },
   methods: {
     configs() {
-      console.log('XXX', this.location);
       return [
-        { db: 'ddhp-lim77-merged', text: 'DDH, bez ogromnych, grupowane' },
-        { db: 'ddhp-nolim-merged', text: 'DDH, wszystkie, grupowane' },
-        { db: 'ddhp-lim77-nomerge', text: 'DDH, bez ogromnych, osobno' },
-        { db: 'ddhp-nolim-nomerge', text: 'DDH, wszystkie, osobno' },
+        { db: 'ddh-lim77-overlap', text: 'DdH, sklejane, bez ogromnych' },
+        { db: 'ddh-nolim-overlap', text: 'DdH, sklejane, wszystkie' },
+        { db: 'ddh-lim77-nomerge', text: 'DdH, oryginalne, bez ogromnych' },
+        { db: 'ddh-nolim-nomerge', text: 'DdH, oryginalne, wszystkie' },
+        { db: 'ddh-lim77-chapter', text: 'DdH, grupowane, bez ogromnych' },
+        { db: 'ddh-nolim-chapter', text: 'DdH, grupowane, wszystkie' },
+        { db: 'ddp-lim77-overlap', text: 'DdP, sklejane, bez ogromnych' },
+        { db: 'ddp-nolim-overlap', text: 'DdP, sklejane, wszystkie' },
+        { db: 'ddp-lim77-nomerge', text: 'DdP, oryginalne, bez ogromnych' },
+        { db: 'ddp-nolim-nomerge', text: 'DdP, oryginalne, wszystkie' },
+        { db: 'ddp-lim77-chapter', text: 'DdP, grupowane, bez ogromnych' },
+        { db: 'ddp-nolim-chapter', text: 'DdP, grupowane, wszystkie' },
       ].map((item) => {
         const url = new URL(window.location);
         url.searchParams.set('use', item.db);
