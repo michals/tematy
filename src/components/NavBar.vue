@@ -1,11 +1,14 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <router-link to="/" class="navbar-brand">
+      <router-link to="/" class="navbar-brand left">
         <img src="logo.png" alt="" width="30" class="d-inline-block align-text-top">
         Tematy Liturgii Słowa
       </router-link>
-      <div class="dropdown dropstart d-inline-block">
+      <router-link to="/info" class="d-inline-block left btn">
+        <i class="bi bi-info-circle"></i>
+      </router-link>
+      <div class="dropdown dropstart d-inline-block ms-auto">
         <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="cfg" data-bs-toggle="dropdown"
           aria-expanded="false">
           <i class="bi bi-gear"></i>
@@ -29,7 +32,7 @@ export default {
   name: 'NavBar',
   props: {
     json: { type: Object, requred: true },
-    location: { type: String, requred: true },
+    location: { requred: true },
   },
   methods: {
     configs() {

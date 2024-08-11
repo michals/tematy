@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import HomePage from './views/HomePage.vue';
+import InfoPage from './views/InfoPage.vue';
 import EntryPage from './views/EntryPage.vue';
 import SubjectPage from './views/SubjectPage.vue';
 
@@ -18,6 +19,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage,
+    },
+    {
+      path: '/info',
+      name: 'info',
+      component: InfoPage,
     },
     {
       path: '/haslo/:slug/:people?/:person?',
