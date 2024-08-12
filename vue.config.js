@@ -2,7 +2,7 @@ module.exports = {
   publicPath: './',
   pwa: {
     name: 'Tematy Liturgii Słowa',
-    themeColor: '#4DBA87',
+    themeColor: '#ac2024',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',

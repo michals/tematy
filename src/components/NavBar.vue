@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand left">
-        <img src="logo.png" alt="" width="30" class="d-inline-block align-text-top">
+        <img src="img/icons/logo.svg" alt="" width="30" class="d-inline-block align-text-top">
         Tematy Liturgii Słowa
       </router-link>
       <router-link to="/info" class="d-inline-block left btn">
