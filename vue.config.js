@@ -9,8 +9,18 @@ module.exports = {
 
     // Configuration for workbox plugin, which is responsible for service worker generation
     workboxOptions: {
-      skipWaiting: true, // Automatically update the service worker in the background
-      clientsClaim: true, // Take control of uncontrolled clients as soon as the service worker is active
+      // skipWaiting: true, // Automatically update the service worker in the background
+      // clientsClaim: true, // Take control of uncontrolled clients as soon as the service worker is active
+      // Exclude all JSON files except subjects-hlgd ones
+      exclude: [
+        // exclude old jsons
+        /subjects-dd[hp]-.*\.json(\.gz)?/,
+        // exclude all but hlgd (hhd, limit, gsmart, dictionary)
+        /subjects-[^h]...\.json.*/,
+        /subjects-.[^l]..\.json.*/,
+        /subjects-..[^g].\.json.*/,
+        /subjects-...[^d]\.json.*/,
+      ],
     },
     iconPaths: {
       favicon32: 'img/icons/logo-32x32.png',

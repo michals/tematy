@@ -58,17 +58,22 @@
         które na siebie nachodzą lub się stykają zostaną połączone w jeden
         i tak z powyższej listy wersetów otrzymamy:
         <ol>
-            <li>1Krl 8,1-13 (powstałe po "sklejeniu" 1-9 oraz 10-13)</li>
+            <li>1Krl 8,1-13 (powstałe po "scaleniu" 1-9 oraz 10-13)</li>
             <li>1Krl 8,16-21</li>
             <li>1Krl 8,27</li>
             <li>1Krl 8,29</li>
         </ol>
-        Jeśli natomiast wybierzemy opcję "<strong>grupowanie</strong>" to oprócz sklejania
-        aplikacja również zgrupuje wersety w ramach tego samego rozdziału
+        Jeśli natomiast wybierzemy opcję "<strong>grupowanie</strong>" to oprócz scalania
+        aplikacja również zgrupuje wersety w ramach tego samego rozdziału o ile nie są od siebie zbytnio oddalone
         i z powyszych wersetów uzyskamy pojedyczne siglo:
         <ol>
             <li>1Krl 8,1-13.16-21.27.29</li>
         </ol>
+        Natomiast 1Krl 8,40 już nie zostałby dodany do grupy ponieważ jest zbyt oddalony od wersetu 29.
+    </p>
+    <p>
+        W najnowszej wersji dodatkowo wprowadzono porządkowanie wersetów nie w kolejności
+        jak są w Biblii ale w takiej jak występują w słowniku w danym haśle.
     </p>
     <p>
         W przypadku znalezienia jakichś problemów lub błędów, można kontaktować się przez adres:
