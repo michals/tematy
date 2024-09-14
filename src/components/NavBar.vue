@@ -37,18 +37,18 @@ export default {
   methods: {
     configs() {
       return [
-        { db: 'ddh-lim77-overlap', text: 'DdH, sklejane, bez ogromnych' },
-        { db: 'ddh-nolim-overlap', text: 'DdH, sklejane, wszystkie' },
-        { db: 'ddh-lim77-nomerge', text: 'DdH, oryginalne, bez ogromnych' },
-        { db: 'ddh-nolim-nomerge', text: 'DdH, oryginalne, wszystkie' },
-        { db: 'ddh-lim77-chapter', text: 'DdH, grupowane, bez ogromnych' },
-        { db: 'ddh-nolim-chapter', text: 'DdH, grupowane, wszystkie' },
-        { db: 'ddp-lim77-overlap', text: 'DdP, sklejane, bez ogromnych' },
-        { db: 'ddp-nolim-overlap', text: 'DdP, sklejane, wszystkie' },
-        { db: 'ddp-lim77-nomerge', text: 'DdP, oryginalne, bez ogromnych' },
-        { db: 'ddp-nolim-nomerge', text: 'DdP, oryginalne, wszystkie' },
-        { db: 'ddp-lim77-chapter', text: 'DdP, grupowane, bez ogromnych' },
-        { db: 'ddp-nolim-chapter', text: 'DdP, grupowane, wszystkie' },
+        { db: 'hlod', text: 'DdH, scalanie, bez ogromnych' },
+        { db: 'hnod', text: 'DdH, scalanie, wszystkie' },
+        { db: 'hlnd', text: 'DdH, oryginalne, bez ogromnych' },
+        { db: 'hnnd', text: 'DdH, oryginalne, wszystkie' },
+        { db: 'hlgd', text: 'DdH, grupowane, bez ogromnych' },
+        { db: 'hngd', text: 'DdH, grupowane, wszystkie' },
+        { db: 'plod', text: 'DdP, scalanie, bez ogromnych' },
+        { db: 'pnod', text: 'DdP, scalanie, wszystkie' },
+        { db: 'plnd', text: 'DdP, oryginalne, bez ogromnych' },
+        { db: 'pnnd', text: 'DdP, oryginalne, wszystkie' },
+        { db: 'plgd', text: 'DdP, grupowane, bez ogromnych' },
+        { db: 'pngd', text: 'DdP, grupowane, wszystkie' },
       ].map((item) => {
         const url = new URL(window.location);
         url.searchParams.set('use', item.db);

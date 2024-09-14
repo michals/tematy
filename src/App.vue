@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     async loadJSON() {
-      const db = new URLSearchParams(window.location.search).get('use') || 'ddh-lim77-overlap';
+      const db = new URLSearchParams(window.location.search).get('use') || 'hlgd';
       console.log('DB:', db);
       let response;
       if (window.DecompressionStream) {
@@ -35,6 +35,11 @@ export default {
         response = await fetch(`subjects-${db}.json`);
       }
       this.json = await response.json();
+      this.$gtag.event('option_selected', {
+        event_category: 'DB',
+        event_label: db,
+        value: 1,
+      });
       console.log(this.json);
     },
   },
