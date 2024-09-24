@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     personOptions() {
-      const names = Array(8).fill('Osoba'); // TODO: get from config
+      const names = Array(10).fill('Osoba'); // TODO: get from config
       return ['Wszystkich']
         .concat(
           names.map((val, idx) => `${idx + 1}. ${val}`),

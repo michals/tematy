@@ -28,7 +28,7 @@ export default {
     people: Number,
   },
   computed: {
-    maxPeople() { return 8; },
+    maxPeople() { return 10; },
   },
   methods: {
     open() {
