@@ -20,6 +20,7 @@ module.exports = {
         /subjects-.[^l]..\.json.*/,
         /subjects-..[^g].\.json.*/,
         /subjects-...[^d]\.json.*/,
+        /x\/.*\.dat/,
       ],
     },
     iconPaths: {

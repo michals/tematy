@@ -4,6 +4,7 @@ import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import HomePage from './views/HomePage.vue';
 import InfoPage from './views/InfoPage.vue';
+import TextPage from './views/TextPage.vue';
 import EntryPage from './views/EntryPage.vue';
 import SubjectPage from './views/SubjectPage.vue';
 import './registerServiceWorker';
@@ -25,6 +26,14 @@ const router = createRouter({
       path: '/info',
       name: 'info',
       component: InfoPage,
+    },
+    {
+      path: '/tekst/:slug',
+      name: 'tekst',
+      component: TextPage,
+      props: (route) => ({
+        slug: route.params.slug || '',
+      }),
     },
     {
       path: '/haslo/:slug/:people?/:person?',

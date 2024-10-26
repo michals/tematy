@@ -3,6 +3,10 @@
     <div class="card-body">
       <h5 class="card-title clearfix">
         <span class="float-start"><strong>{{ entry.title }}</strong></span>
+        <span class="float-start">
+          <router-link :to="{ name: 'tekst', params: { slug: entry.slug } }">
+            <i class="ms-2 bi bi-book"/></router-link>
+        </span>
         <span class="float-end">
           <person-dropdown :slug="slug" :people="people" :person="person" ref="personComponent" />
           <span>&nbsp;z</span>
