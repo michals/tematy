@@ -3,6 +3,12 @@
     <div class="card-body">
       <h5 class="card-title clearfix">
         <span class="float-start"><strong>{{ subject.t }}</strong></span>
+        <span class="float-start">
+          <router-link
+          v-for="entry in subject.e" :key="entry"
+          :to="{ name: 'tekst', params: { slug: entry } }">
+            <i class="ms-2 bi bi-book"/></router-link>
+        </span>
         <span class="float-end">
           <person-dropdown :slug="slug" :people="people" :person="person" ref="personComponent" />
           <span>&nbsp;z</span>
