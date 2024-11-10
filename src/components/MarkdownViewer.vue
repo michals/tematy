@@ -1,22 +1,29 @@
 <template>
-    <div :class="{ 'dark-mode': isDarkMode }">
+    <div>
       <div class="controls">
-        <label>Rozmiar czcionki:
+        <div class="form-check form-switch">
+          <input class="form-check-input"
+          type="checkbox" v-model="hideRefs"
+          id="mySwitch" name="darkmode">
+          <label class="form-check-label" for="mySwitch">Ukryj wersety</label>
+        </div>
+        <label>Czcionka:
           <input type="range" min="12" max="32" v-model="fontSize" />
         </label>
       </div>
-      <div v-html="htmlContent" :style="{ fontSize: fontSize + 'px' }" class="markdown-content"></div>
+      <MarkdownComponent :md="markdownText" :fontSize="fontSize" :hideRefs="hideRefs"/>
     </div>
   </template>
 
 <script>
 import { ref, onMounted } from 'vue';
-import MarkdownIt from 'markdown-it';
-
-const md = new MarkdownIt();
+import MarkdownComponent from './MarkdownComponent.vue';
 
 export default {
   name: 'MarkdownViewer',
+  components: {
+    MarkdownComponent,
+  },
   props: {
     slug: {
       type: String,
@@ -24,8 +31,9 @@ export default {
     },
   },
   setup(props) {
-    const htmlContent = ref('');
-    const fontSize = ref(16);
+    const fontSize = ref(18);
+    const hideRefs = ref(true);
+    const markdownText = ref('');
 
     function xor(key) {
       const keyBytes = new TextEncoder().encode(key);
@@ -43,6 +51,7 @@ export default {
         },
       });
     }
+
     const only = 'wylacznie do celow kultu religijnego';
     const loadMarkdown = async () => {
       try {
@@ -51,8 +60,7 @@ export default {
         const blob = await gzResponse.blob();
         const decompressedStream = blob.stream().pipeThrough(xor(only)).pipeThrough(gunzip);
         const response = new window.Response(decompressedStream);
-        const markdownText = await response.text();
-        htmlContent.value = md.render(markdownText);
+        markdownText.value = await response.text();
       } catch (error) {
         console.error('Error loading Markdown:', error);
       }
@@ -60,20 +68,14 @@ export default {
 
     onMounted(loadMarkdown);
 
-    return { htmlContent, fontSize };
+    return {
+      fontSize, hideRefs, markdownText,
+    };
   },
 };
 </script>
-
   <style scoped>
   .controls {
     margin-bottom: 16px;
-  }
-
-  .markdown-content {
-    line-height: 1.6;
-  }
-  .markdown-content {
-    text-align: justify;
   }
   </style>

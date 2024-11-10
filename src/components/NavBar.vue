@@ -14,6 +14,7 @@
           <i class="bi bi-gear"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="cfg">
+          <li class="dropdown-item" @click="darkMode()">Odwróć kolory</li>
           <li>
             <h6 class="dropdown-header">Konfiguracje:</h6>
           </li>
@@ -35,6 +36,9 @@ export default {
     location: { requred: true },
   },
   methods: {
+    darkMode() {
+      document.querySelector('html').classList.toggle('dark-mode');
+    },
     configs() {
       return [
         { db: 'hlod', text: 'DdH, scalanie, bez ogromnych' },
