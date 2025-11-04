@@ -35,7 +35,7 @@ export default {
       } : null;
     },
     link() {
-      const baseUrl = 'https://www.biblia.pl/otworz.php?skrot=';
+      const baseUrl = 'https://biblia.deon.pl/otworz.php?skrot=';
       const { book, chapter, firstVerse } = this.parseVerse(this.verse);
       const skrot = `${book} ${chapter}${(firstVerse !== 0) ? `,${firstVerse}` : ''}`;
       const encodedVerse = encodeURIComponent(skrot);
