@@ -34,6 +34,7 @@ export default {
       const mdText = this.md;
       let html = renderer.render(mdText);
       html = html.replace(/\(([^()]+)\)/g, '<i class="ref">($1)</i><i class="ph"></i>');
+      html = html.replace(/href="([^":/]+)\.md"/g, 'href="#/tekst/$1"');
       return html;
     },
   },

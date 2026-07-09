@@ -16,7 +16,7 @@
   </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import MarkdownComponent from './MarkdownComponent.vue';
 
 export default {
@@ -67,6 +67,7 @@ export default {
     };
 
     onMounted(loadMarkdown);
+    watch(() => props.slug, loadMarkdown);
 
     return {
       fontSize, hideRefs, markdownText,
