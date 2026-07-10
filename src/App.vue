@@ -75,4 +75,29 @@ export default {
 </script>
 
 <style>
+@media (min-width: 576px) {
+  .container {
+    max-width: calc(100% - (100% - 540px) / 3);
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: calc(100% - (100% - 720px) / 3);
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: calc(100% - (100% - 960px) / 3);
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: calc(100% - (100% - 1140px) / 3);
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: calc(100% - (100% - 1320px) / 3);
+  }
+}
 </style>
