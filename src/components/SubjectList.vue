@@ -1,6 +1,11 @@
 <template>
   <ol class="subject-list">
-    <li v-for="subject in subjects" :key="subject">
+    <li
+      v-for="(subject, index) in subjects"
+      :key="subject.s"
+      :value="index + 1"
+      :class="{ 'd-none': selectedLetter && getBaseLetter(subject.t) !== selectedLetter }"
+    >
       <router-link :to="{ name: 'subject', params: { slug: subject.s } }">
         {{ subject.t }}
       </router-link>
@@ -9,12 +14,18 @@
 </template>
 
 <script>
+import getBaseLetter from '../utils/letters';
+
 export default {
   name: 'SubjectList',
   components: {
   },
   props: {
     subjects: Array,
+    selectedLetter: String,
+  },
+  methods: {
+    getBaseLetter,
   },
 };
 </script>
