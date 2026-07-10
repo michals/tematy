@@ -1,19 +1,31 @@
 <template>
-    <div>
-      <div class="controls">
-        <div class="form-check form-switch">
-          <input class="form-check-input"
-          type="checkbox" v-model="hideRefs"
-          id="mySwitch" name="darkmode">
-          <label class="form-check-label" for="mySwitch">Ukryj wersety</label>
-        </div>
-        <label>Czcionka:
-          <input type="range" min="12" max="32" v-model="fontSize" />
-        </label>
+  <div>
+    <div class="controls d-flex flex-wrap gap-3 align-items-center">
+      <div class="form-check form-switch">
+        <input class="form-check-input"
+        type="checkbox" v-model="hideRefs"
+        id="mySwitch" name="darkmode">
+        <label class="form-check-label" for="mySwitch">Ukryj wersety</label>
       </div>
-      <MarkdownComponent :md="markdownText" :fontSize="fontSize" :hideRefs="hideRefs"/>
+      <div class="d-flex align-items-center gap-2">
+        <span>Czcionka:</span>
+        <input type="range" min="12" max="32" v-model="fontSize" />
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input"
+        type="checkbox" v-model="useSerif"
+        id="serifSwitch">
+        <label class="form-check-label" for="serifSwitch">Szeryfowa</label>
+      </div>
     </div>
-  </template>
+    <MarkdownComponent
+      :md="markdownText"
+      :fontSize="fontSize"
+      :hideRefs="hideRefs"
+      :useSerif="useSerif"
+    />
+  </div>
+</template>
 
 <script>
 import { ref, onMounted, watch } from 'vue';
@@ -33,6 +45,7 @@ export default {
   setup(props) {
     const fontSize = ref(18);
     const hideRefs = ref(true);
+    const useSerif = ref(true);
     const markdownText = ref('');
 
     function xor(key) {
@@ -70,7 +83,7 @@ export default {
     watch(() => props.slug, loadMarkdown);
 
     return {
-      fontSize, hideRefs, markdownText,
+      fontSize, hideRefs, markdownText, useSerif,
     };
   },
 };

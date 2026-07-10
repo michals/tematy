@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-html="htmlContent"
-    :style="{ fontSize: fontSize + 'px' }"
+    :style="{ fontSize: fontSize + 'px', fontFamily: useSerif ? 'serif' : 'sans-serif' }"
     :class="{ hideRefs: hideRefs}"
     class="markdown-content"
     ></div>
@@ -25,6 +25,10 @@ export default {
       required: true,
     },
     hideRefs: {
+      type: Boolean,
+      required: true,
+    },
+    useSerif: {
       type: Boolean,
       required: true,
     },
