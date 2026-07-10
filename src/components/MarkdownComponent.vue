@@ -71,4 +71,22 @@ export default {
   opacity: 0.5;
   content: '(...)';
 }
+.markdown-content h1 {
+  font-size: 1.8em;
+}
+.markdown-content h2 {
+  font-size: 1.5em;
+}
+.markdown-content h3 {
+  font-size: 1.25em;
+}
+.markdown-content h4 {
+  font-size: 1.1em;
+}
+.markdown-content h5 {
+  font-size: 1em;
+}
+.markdown-content h6 {
+  font-size: 0.9em;
+}
 </style>
