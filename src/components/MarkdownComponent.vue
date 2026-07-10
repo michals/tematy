@@ -93,4 +93,11 @@ export default {
 .markdown-content h6 {
   font-size: 0.9em;
 }
+.markdown-content a {
+  color: #0a58ca;
+  text-decoration: none;
+}
+.markdown-content a:hover {
+  text-decoration: underline;
+}
 </style>
