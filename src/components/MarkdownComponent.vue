@@ -51,7 +51,7 @@ export default {
 
 .markdown-content {
   line-height: 1.4;
-  font-family: serif;
+  font-family: sans-serif;
   text-align: justify;
 }
 </style>

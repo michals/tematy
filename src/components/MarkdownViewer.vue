@@ -45,7 +45,7 @@ export default {
   setup(props) {
     const fontSize = ref(18);
     const hideRefs = ref(true);
-    const useSerif = ref(true);
+    const useSerif = ref(false);
     const markdownText = ref('');
 
     function xor(key) {
