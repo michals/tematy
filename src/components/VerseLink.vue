@@ -38,7 +38,10 @@ export default {
       const baseUrl = 'https://biblia.deon.pl/otworz.php?skrot=';
       const { book, chapter, firstVerse } = this.parseVerse(this.verse);
       const skrot = `${book} ${chapter}${(firstVerse !== 0) ? `,${firstVerse}` : ''}`;
-      const encodedVerse = encodeURIComponent(skrot);
+      // Legacy biblia.deon.pl PHP script expects ISO-8859-2 encoding:
+      const encodedVerse = encodeURIComponent(skrot)
+        .replace(/%C5%81/g, '%A3') /* in case of Łk */
+        .replace(/%C5%82/g, '%B3'); /* in case of Kpł */
       return `${baseUrl}${encodedVerse}`;
     },
   },
