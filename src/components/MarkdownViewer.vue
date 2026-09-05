@@ -17,6 +17,7 @@
         id="serifSwitch">
         <label class="form-check-label" for="serifSwitch">Szeryfowa</label>
       </div>
+      <PodcastPlayer :slug="slug" />
     </div>
     <MarkdownComponent
       :md="markdownText"
@@ -30,11 +31,13 @@
 <script>
 import { ref, onMounted, watch } from 'vue';
 import MarkdownComponent from './MarkdownComponent.vue';
+import PodcastPlayer from './PodcastPlayer.vue';
 
 export default {
   name: 'MarkdownViewer',
   components: {
     MarkdownComponent,
+    PodcastPlayer,
   },
   props: {
     slug: {
