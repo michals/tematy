@@ -1,6 +1,21 @@
 <template>
   <div>
+    <TtsPlayer
+      ref="ttsPlayerRef"
+      :slug="slug"
+      @update:isOpen="isTtsOpen = $event"
+    />
     <div class="controls d-flex flex-wrap gap-3 align-items-center">
+      <button
+        type="button"
+        class="btn btn-sm"
+        :class="isTtsOpen ? 'btn-secondary' : 'btn-outline-secondary'"
+        @click="toggleTts"
+        title="Lektor TTS"
+        aria-label="Lektor TTS"
+      >
+        ▶️
+      </button>
       <div class="form-check form-switch">
         <input class="form-check-input"
         type="checkbox" v-model="hideRefs"
@@ -29,15 +44,22 @@
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue';
+import {
+  ref,
+  onMounted,
+  watch,
+  nextTick,
+} from 'vue';
 import MarkdownComponent from './MarkdownComponent.vue';
 import PodcastPlayer from './PodcastPlayer.vue';
+import TtsPlayer from './TtsPlayer.vue';
 
 export default {
   name: 'MarkdownViewer',
   components: {
     MarkdownComponent,
     PodcastPlayer,
+    TtsPlayer,
   },
   props: {
     slug: {
@@ -68,6 +90,16 @@ export default {
       });
     }
 
+    const ttsPlayerRef = ref(null);
+    const isTtsOpen = ref(false);
+
+    const toggleTts = () => {
+      if (ttsPlayerRef.value) {
+        ttsPlayerRef.value.togglePlayer();
+        isTtsOpen.value = ttsPlayerRef.value.isOpen;
+      }
+    };
+
     const only = 'wylacznie do celow kultu religijnego';
     const loadMarkdown = async () => {
       try {
@@ -77,7 +109,13 @@ export default {
         const decompressedStream = blob.stream().pipeThrough(xor(only)).pipeThrough(gunzip);
         const response = new window.Response(decompressedStream);
         markdownText.value = await response.text();
+        nextTick(() => {
+          if (ttsPlayerRef.value && ttsPlayerRef.value.isOpen) {
+            ttsPlayerRef.value.refreshChunks();
+          }
+        });
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error loading Markdown:', error);
       }
     };
@@ -86,7 +124,13 @@ export default {
     watch(() => props.slug, loadMarkdown);
 
     return {
-      fontSize, hideRefs, markdownText, useSerif,
+      fontSize,
+      hideRefs,
+      markdownText,
+      useSerif,
+      ttsPlayerRef,
+      isTtsOpen,
+      toggleTts,
     };
   },
 };

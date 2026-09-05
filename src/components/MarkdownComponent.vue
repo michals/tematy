@@ -100,4 +100,22 @@ export default {
 .markdown-content a:hover {
   text-decoration: underline;
 }
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6,
+.markdown-content p,
+.markdown-content li,
+.markdown-content blockquote {
+  scroll-margin-top: 80px;
+}
+.markdown-content .tts-active-chunk {
+  outline: 2px dashed #0d6efd;
+  outline-offset: 4px;
+  background-color: rgba(13, 110, 253, 0.08);
+  border-radius: 4px;
+  transition: outline 0.15s ease, background-color 0.15s ease;
+}
 </style>
