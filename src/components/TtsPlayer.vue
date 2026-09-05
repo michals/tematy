@@ -1,74 +1,112 @@
 <template>
   <div v-if="isOpen" class="tts-sticky-bar mb-3 p-2 border rounded shadow-sm">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-      <!-- 4 Playback controls -->
-      <div class="d-flex align-items-center gap-1">
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary"
-          @click="prev"
-          :disabled="chunks.length === 0 || currentIndex <= 0"
-          title="Poprzedni fragment"
-          aria-label="Poprzedni fragment"
-        >
-          <i class="bi bi-skip-backward-fill"></i>
-        </button>
+      <!-- Left side: 4 Playback controls + Chunk progress indicator -->
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <div class="d-flex align-items-center gap-1">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            @click="prev"
+            :disabled="chunks.length === 0 || currentIndex <= 0"
+            title="Poprzedni fragment"
+            aria-label="Poprzedni fragment"
+          >
+            <i class="bi bi-skip-backward-fill"></i>
+          </button>
 
-        <button
-          type="button"
-          class="btn btn-sm"
-          :class="isPlaying && !isPaused ? 'btn-primary' : 'btn-outline-primary'"
-          @click="playPause"
-          :disabled="chunks.length === 0"
-          :title="isPlaying && !isPaused ? 'Wstrzymaj' : 'Odtwarzaj'"
-          :aria-label="isPlaying && !isPaused ? 'Wstrzymaj' : 'Odtwarzaj'"
-        >
-          <i :class="isPlaying && !isPaused ? 'bi bi-pause-fill' : 'bi bi-play-fill'"></i>
-        </button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            :class="isPlaying && !isPaused ? 'btn-primary' : 'btn-outline-primary'"
+            @click="playPause"
+            :disabled="chunks.length === 0"
+            :title="isPlaying && !isPaused ? 'Wstrzymaj' : 'Odtwarzaj'"
+            :aria-label="isPlaying && !isPaused ? 'Wstrzymaj' : 'Odtwarzaj'"
+          >
+            <i :class="isPlaying && !isPaused ? 'bi bi-pause-fill' : 'bi bi-play-fill'"></i>
+          </button>
 
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary"
-          @click="next"
-          :disabled="chunks.length === 0 || (currentIndex >= chunks.length - 1 && currentIndex >= 0)"
-          title="Następny fragment"
-          aria-label="Następny fragment"
-        >
-          <i class="bi bi-skip-forward-fill"></i>
-        </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            @click="next"
+            :disabled="chunks.length === 0 || (currentIndex >= chunks.length - 1 && currentIndex >= 0)"
+            title="Następny fragment"
+            aria-label="Następny fragment"
+          >
+            <i class="bi bi-skip-forward-fill"></i>
+          </button>
 
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-danger"
-          @click="stop"
-          :disabled="!isPlaying && currentIndex < 0"
-          title="Zatrzymaj"
-          aria-label="Zatrzymaj"
-        >
-          <i class="bi bi-stop-fill"></i>
-        </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            @click="stop"
+            :disabled="!isPlaying && currentIndex < 0"
+            title="Zatrzymaj"
+            aria-label="Zatrzymaj"
+          >
+            <i class="bi bi-stop-fill"></i>
+          </button>
+        </div>
+
+        <!-- Chunk progress indicator right after stop button -->
+        <div class="text-muted small ms-1">
+          <span v-if="currentIndex >= 0 && chunks.length > 0">
+            Fragment {{ currentIndex + 1 }} z {{ chunks.length }}
+          </span>
+          <span v-else-if="chunks.length > 0">
+            Lektor TTS ({{ chunks.length }} fragmentów)
+          </span>
+          <span v-else>
+            Brak tekstu do odczytania
+          </span>
+        </div>
       </div>
 
-      <!-- Chunk progress indicator -->
-      <div class="text-muted small">
-        <span v-if="currentIndex >= 0 && chunks.length > 0">
-          Fragment {{ currentIndex + 1 }} z {{ chunks.length }}
-        </span>
-        <span v-else-if="chunks.length > 0">
-          Lektor TTS ({{ chunks.length }} fragmentów)
-        </span>
-        <span v-else>
-          Brak tekstu do odczytania
-        </span>
-      </div>
+      <!-- Right side: Voice and Speed dropdowns next to the [X] button -->
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <select
+          class="form-select form-select-sm tts-voice-select"
+          v-model="selectedVoiceURI"
+          @change="onVoiceChange"
+          aria-label="Głos PL"
+          title="Wybierz głos lektora"
+        >
+          <option v-if="polishVoices.length === 0" value="">
+            Domyślny głos (pl-PL)
+          </option>
+          <option
+            v-for="voice in polishVoices"
+            :key="voice.voiceURI"
+            :value="voice.voiceURI"
+          >
+            {{ voice.name }}
+          </option>
+        </select>
 
-      <!-- Close player button -->
-      <button
-        type="button"
-        class="btn-close ms-auto"
-        aria-label="Zamknij lektora"
-        @click="closePlayer"
-      ></button>
+        <select
+          class="form-select form-select-sm tts-speed-select"
+          v-model="selectedSpeed"
+          @change="onSpeedChange"
+          aria-label="Szybkość czytania"
+          title="Szybkość czytania"
+        >
+          <option :value="0.70">Bardzo wolny</option>
+          <option :value="0.85">Wolny</option>
+          <option :value="1.0">Normalny</option>
+          <option :value="1.15">Szybki</option>
+          <option :value="1.30">Bardzo szybki</option>
+        </select>
+
+        <!-- Close player button -->
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Zamknij lektora"
+          @click="closePlayer"
+        ></button>
+      </div>
     </div>
   </div>
 </template>
@@ -101,24 +139,26 @@ export default {
     const isPaused = ref(false);
     const currentIndex = ref(-1);
     const chunks = ref([]);
-    const polishVoice = ref(null);
+    const polishVoices = ref([]);
+    const selectedVoiceURI = ref('');
+    const selectedSpeed = ref(1.0);
     const activeUtterance = ref(null);
 
-    const findPolishVoice = () => {
-      if (typeof window === 'undefined' || !window.speechSynthesis) return null;
-      const voices = window.speechSynthesis.getVoices();
-      const directMatch = voices.find(
-        (v) => v.lang === 'pl-PL' || v.lang === 'pl_PL',
-      );
-      if (directMatch) return directMatch;
-      const prefixMatch = voices.find(
-        (v) => v.lang.toLowerCase().startsWith('pl'),
-      );
-      return prefixMatch || null;
-    };
-
     const loadVoices = () => {
-      polishVoice.value = findPolishVoice();
+      if (typeof window === 'undefined' || !window.speechSynthesis) return;
+      const allVoices = window.speechSynthesis.getVoices();
+      const filtered = allVoices.filter(
+        (v) => v.lang === 'pl-PL' || v.lang === 'pl_PL' || v.lang.toLowerCase().startsWith('pl'),
+      );
+      polishVoices.value = filtered;
+      if (filtered.length > 0) {
+        const exists = filtered.some((v) => v.voiceURI === selectedVoiceURI.value);
+        if (!exists) {
+          selectedVoiceURI.value = filtered[0].voiceURI;
+        }
+      } else {
+        selectedVoiceURI.value = '';
+      }
     };
 
     const extractCleanText = (element) => {
@@ -203,8 +243,13 @@ export default {
 
       const utterance = new window.SpeechSynthesisUtterance(text);
       utterance.lang = 'pl-PL';
-      if (polishVoice.value) {
-        utterance.voice = polishVoice.value;
+      utterance.rate = Number(selectedSpeed.value);
+
+      const chosenVoice = polishVoices.value.find(
+        (v) => v.voiceURI === selectedVoiceURI.value,
+      );
+      if (chosenVoice) {
+        utterance.voice = chosenVoice;
       }
 
       utterance.onend = () => {
@@ -293,7 +338,20 @@ export default {
       }
     };
 
+    const onVoiceChange = () => {
+      if (isPlaying.value && !isPaused.value && currentIndex.value >= 0) {
+        speakChunk(currentIndex.value);
+      }
+    };
+
+    const onSpeedChange = () => {
+      if (isPlaying.value && !isPaused.value && currentIndex.value >= 0) {
+        speakChunk(currentIndex.value);
+      }
+    };
+
     const openPlayer = () => {
+      loadVoices();
       isOpen.value = true;
       emit('update:isOpen', true);
       nextTick(() => {
@@ -318,14 +376,14 @@ export default {
     onMounted(() => {
       loadVoices();
       if (typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.onvoiceschanged = loadVoices;
+        window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
       }
     });
 
     onBeforeUnmount(() => {
       stop();
       if (typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.onvoiceschanged = null;
+        window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
       }
     });
 
@@ -345,10 +403,15 @@ export default {
       isPaused,
       currentIndex,
       chunks,
+      polishVoices,
+      selectedVoiceURI,
+      selectedSpeed,
       playPause,
       prev,
       next,
       stop,
+      onVoiceChange,
+      onSpeedChange,
       openPlayer,
       closePlayer,
       togglePlayer,
@@ -365,5 +428,13 @@ export default {
   z-index: 1020;
   background-color: var(--bs-body-bg, #ffffff);
   backdrop-filter: blur(8px);
+}
+.tts-voice-select {
+  flex: 0 0 160px;
+  width: 160px;
+}
+.tts-speed-select {
+  flex: 0 0 130px;
+  width: 130px;
 }
 </style>
